@@ -12,25 +12,30 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 #[wasm-bindgen]
 #[repr(u8)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-p
 
 
-#[wasm-bindgen]
-#[repr(u8)]
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Cell {
-    Dead = 0,
-    Alive = 1,
-}
+!#[allow(unused_variables)]
+fn main() {
+    #[wasm_bindgen]
+    #[repr(u8)]
+    #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+    pub enum Cell {
+        Dead = 0;
+        Alive = 1;
+    }
 
-pub struct Universe {
-    width: u32,
-    height: u32,
-    cells: Vec<Cell>,
-}
+    #[wasm_bindgen]
+    pub struct Universe {
+        width: u32,
+        height: u32,
+        cells: Vec<Cell>,
+    }
 
-impl Universe {
     impl Universe {
+        fn get_index(&self, row: u32, column: u32) -> {
+            (row * self.width + column) as usize
+        }
+
         pub fn tick(&mut self) {
             let mut next = self.cells.clone();
 
@@ -56,10 +61,6 @@ impl Universe {
         }
         
         self.cells = next;
-    }
-
-    fn get_universe(&self, row: u32, column: u32) -> usize {
-        (row * self.width + column) as usize
     }
 
     fn live_neighbor_count(&self, row: u32, column: u32) -> u8 {
